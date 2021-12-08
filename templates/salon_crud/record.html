@@ -5,12 +5,12 @@
     <title>Pretty</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700" rel="stylesheet">
 
     <link rel="stylesheet" href="{% static 'assets/css/open-iconic-bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
-    
+
     <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/owl.theme.default.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
@@ -22,17 +22,18 @@
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap-datepicker.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/jquery.timepicker.css' %}">
 
-    
+
     <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   </head>
   <body>
-    
-    <div style="background-image: url('{% static 'images/image_6.jpg' %}'); height: 275px; weight: 100%; background-position: 0% 50px" data-stellar-background-ratio="0.5">
-            <h1 class="mb-3 mt-5 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"></h1>
+
+    <div  style="background-image: url({% static 'images/zakat1.jpg' %}); height: 275px; weight: 100px; background-position: 0% 50px" data-stellar-background-ratio="0.5">
+      <h1 class="mb-3 mt-5 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"></h1>
             <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"></span></p>
           </div>
+
 
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
@@ -44,7 +45,7 @@
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item active"><a href="../" class="nav-link">Главная страница</a></li>
-	          <li class="nav-item"><a class="nav-link">Услуги</a></li>
+	          <li class="nav-item"><a class="nav-link">Записи</a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -53,54 +54,31 @@
 		<section class="ftco-section">
     	<div class="container">
     		<div class="row">
+                {% for record in records %}
           <div class="col-md-4 ftco-animate">
             <div class="media d-block text-center block-6 services">
-              <div class="icon d-flex mb-3"><span class="flaticon-facial-treatment"></span></div>
               <div class="media-body">
-                <h3 class="heading">Маникюр</h3>
-                <li>Комбинированный маникюр 500 сом</li>
-                <li>Покрытие гель лаком 500 сом</li>
-                <li>Покрытие обычным лаком 300 сом</li>
-                <li>Наращивание ногтей гелем 2000 сом</li>
-                <li>Снятие гель лака 100 сом</li>
+                <h3 class="heading" style="font-weight: 600;"><a href="{%url 'detail' record.id%}">{{record.customer.name}}</a></h3>
+                <p><b>Номер телефона: {{record.customer.number}}</b></p>
+                <p style="font-weight: 600;">{{record.branch}}</p>
+                <p style="font-weight: 600;">Выбранные услуги:</p>
+                {% for s in record.service.all %}
+                  <li style="color:#C71585">{{s.name}} {{s.price}}</li>
+                {% endfor %}
+                <p></p>
+                <p>Мастер: {{record.master}}</p>
+                <p style="font-weight: 600;">Дата записи: {{record.record_time}}</p>
               </div>
             </div>
           </div>
-          <div class="col-md-4 ftco-animate">
-            <div class="media d-block text-center block-6 services">
-              <div class="icon d-flex mb-3"><span class="flaticon-cosmetics"></span></div>
-              <div class="media-body">
-                <h3 class="heading">Педикюр</h3>
-                <li>Комбинированный педикюр 1000 сом</li>
-                <li>Покрытие гель лаком 500 сом</li>
-                <li>Покрытие обычным лаком 300 сом</li>
-              </div>
+                {% endfor %}
             </div>
-          </div>
-          <div class="col-md-4 ftco-animate">
-            <div class="media d-block text-center block-6 services">
-              <div class="icon d-flex mb-3"><span class="flaticon-curl"></span></div>
-              <div class="media-body">
-                <h3 class="heading">Парикмахерские услуги</h3>
-                <li>Стрижка на короткие волосы 700 сом</li>
-                <li>Стрижка на длинные волосы 900 сом</li>
-                <li>Укладка 500 сом</li>
-                <li>Покраска 600 сом</li>
-                <li>Химическая завивка 900 сом</li>
-                <li>Прическа (локоны) 1000 сом</li>
-                <li>Вечерняя прическа 2000 сом</li>
-                <li>Прическа (высокий хвост) 1200 сом</li>
-                <li>Прическа (голливудские локоны) 1200 сом</li>
-              </div>
-            </div>
-          </div>
         </div>
-    	</div>
     </section>
 
 
-    
-  
+
+
 
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
@@ -123,6 +101,6 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="{% static 'assets/js/google-map.js' %}"></script>
   <script src="{% static 'assets/js/main.js' %}"></script>
-    
+
   </body>
 </html>

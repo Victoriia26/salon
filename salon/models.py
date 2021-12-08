@@ -15,7 +15,7 @@ class Services(models.Model):
     price = models.PositiveIntegerField()
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.name} --> {self.price}'
 
 class Master(models.Model):
     name = models.CharField(max_length=100)
@@ -28,16 +28,16 @@ class Master(models.Model):
         return f'{self.name}'
 
 class Customer(models.Model):
-    name = models.CharField(max_length=100)
-    number = models.CharField(max_length=25)
+    name = models.CharField(max_length=100, verbose_name='Имя')
+    number = models.CharField(max_length=25, verbose_name='Номер телефона')
 
     def __str__(self):
         return f'{self.name}'
 
 class Record(models.Model):
-    branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
-    service = models.ManyToManyField(Services, related_name='service_record')
-    master = models.ForeignKey(Master, on_delete=models.CASCADE)
-    record_time = models.DateTimeField()
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    branch = models.ForeignKey(Branch, on_delete=models.CASCADE, verbose_name='Филиал')
+    service = models.ManyToManyField(Services, related_name='service_record', verbose_name='Услуги')
+    master = models.ForeignKey(Master, on_delete=models.CASCADE, verbose_name='Мастер')
+    record_time = models.DateTimeField(verbose_name='Время записи', unique=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
 

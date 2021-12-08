@@ -26,21 +26,11 @@
     <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-
-      <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-
-  <!-- XDSoft DateTimePicker -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
   </head>
   <body>
-
-    <div style="background-image: url('{% static 'images/image_6.jpg' %}'); height: 275px; weight: 100%; background-position: 0% -25px" data-stellar-background-ratio="0.5">
-            <h1 class="mb-3 mt-5 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"></h1>
-            <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"></span></p>
-          </div>
-
+    <section class="ftco-section ftco-appointment">
+			<div class="overlay"></div>
+    </section>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
 	      <a class="navbar-brand">Pretty</a>
@@ -50,33 +40,30 @@
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="../" class="nav-link">Главная страница</a></li>
-	          <li class="nav-item"><a class="nav-link">Записаться</a></li>
+	          <li class="nav-item active"><a href="../../" class="nav-link">Главная страница</a></li>
+	          <li class="nav-item"><a href="../../record/" class="nav-link">Вернуться</a></li>
 	        </ul>
 	      </div>
 	    </div>
 	  </nav>
-    <!-- END nav -->
 
-<center style="margin-bottom:100px; font-style:italic; font-size:17px; color:#C71585">
-<b><form method="post" enctype="multipart/form-data" autocomplete="off" style="margin-top: 3%;">
-   {% csrf_token%}
-    {{form.as_p}}
-    {{form1.as_p}}
-    <input type="submit" value="Записаться">
-   </form> </b>
-
-{{ form.date }}
-<script>
-  $(function () {
-    $("#id_record_time").datetimepicker({
-      format: 'd.m.Y H:i',
-      minTime:'8:00',
-      maxTime:'21:00'
-    });
-  });
-</script>
+<center style="margin-bottom:100px; font-size:16px;">
+    <h3 class="heading"><a>{{record.customer.name}}</a></h3>
+        <p>{{record.branch}}-->{{record.branch.address}}</p>
+        <p>Выбранные услуги:</p>
+            {% for s in record.service.all %}
+                <li>{{s.name}}: {{s.price}}</li>
+            {% endfor %}
+        <p>Мастер: {{record.master}}</p>
+        <p>Дата записи: {{record.record_time}}</p>
+<big>
+     <button style="border: none;"><a href="{% url 'update' record.pk%}">Изменить запись</a></button>
+	 <button style="border: none;"><a href="{% url 'delete' record.pk%}">Удалить запись</a></button>
+</big>
 </center>
 
+<section class="ftco-section ftco-appointment">
+		<div class="overlay"></div>
+</section>
 </body>
 </html>

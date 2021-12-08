@@ -6,4 +6,4 @@ admin.site.register(Services)
 admin.site.register(Master)
 admin.site.register(Customer)
 admin.site.register(Record)
-# Register your models here.
+
